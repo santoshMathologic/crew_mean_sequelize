@@ -20,7 +20,7 @@ var itemsObj = {
   },
 
   Item_find: function (req, res) {
-    Item.find({ where: { name:'Laptop'}}).then(function (err, item) {
+    Item.find({ where: { name: 'Laptop' } }).then(function (err, item) {
       if (err) {
         console.log(err);
       } else {
@@ -52,6 +52,22 @@ var itemsObj = {
     });
   },
 
+
+  saveUsingCreate: function (req, res) {
+    Item
+      .create({ name: 'Iball', description: 'Iball Model No 2340TL', qty: 100 })
+      .then(function (savedRespose) {
+        console.log(savedRespose.get('name')); // John Doe (SENIOR ENGINEER)
+        console.log(savedRespose.get('description')); // SENIOR ENGINEER
+        console.log(savedRespose.get('qty')); // SENIOR ENGINEER
+        res.status(201);
+        res.json({
+          "status": 200,
+          "message": "Items Created Successfully"
+        })
+      })
+
+  },
 
   deleteItems: function (req, res) {
 

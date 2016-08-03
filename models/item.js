@@ -11,16 +11,22 @@ var Item = sequelize.define('Item', {
         allowNull: false,
         autoIncrement: true,
     },
+    indexes: [
+        {
+            unique: true,
+            fields: ['id']
+        },
+    ],
     name: Sequelize.STRING,
     description: Sequelize.STRING,
     qty: Sequelize.INTEGER,
     createdAt: {
         type: Sequelize.DATE,
         allowNull: false
-      },
-      updatedAt: {
+    },
+    updatedAt: {
         type: Sequelize.DATE,
         allowNull: false
-      }
+    }
 });
 module.exports = Item;
