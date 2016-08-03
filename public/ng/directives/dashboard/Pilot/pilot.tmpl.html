@@ -1,0 +1,291 @@
+<div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+    <ul class="breadcrumb">
+        <li class="fa fa-bell" aria-hidden="true"><a href="#"> Home</a></li>
+        <li class="fa fa-bell" aria-hidden="true"> DashBoard </li>
+        <li class="active"> Pilot</li>
+    </ul>
+
+    <p class="page-header">
+        <h2>Create Pilot</h2>
+    </p>
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Create Pilot</div>
+                <div class="panel-body">
+
+                    <div class="panel-body">
+                        <button class="btn btn-primary" ng-click="trainSelected()"><i class="fa fa-train" aria-hidden="true"></i> Train</button>
+                        <button class="btn btn-primary" ng-click="othersSelected()"><i class="fa fa-indent" aria-hidden="true"></i> Others</button>
+
+                        <div ng-show="isPilotTypeTrain()">
+                            <fieldset class="well the-fieldset">
+                                <legend class="the-legend">Select Train</legend>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="control-label">From Station</label> <input type="text" name="from"
+                                                ng-required="true" class="form-control" placeholder="Enter Your FromStation"
+                                                ng-model="fromStation">
+                                            <span style="color: red" ng-show="(submitClass=='ng-submitted') || (submitClass!='hide-errors' && userForm.from.$dirty && userForm.from.$invalid)">
+						            <span ng-show="userForm.from.$error.required">FromStation Required.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group" style="margin-top: 2px;">
+                                            <label class="control-label">Departure Day</label> <select ng-model="departureDay"
+                                                class="form-control input-sm">
+										<option value="" selected>All</option>
+										<option ng-repeat="day in Days" value="{{day}}">{{ day }}</option>
+									</select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <label class="control-label">Departure Time</label> <input type="text" ng-model="departureTime"
+                                            class="form-control input-sm" /> <strong class="btn-danger" ng-hide="validateTime(departureTime);">Not
+									in 24Hrs Time</strong>
+                                    </div>
+                                </div>
+                                <div>&nbsp;</div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="control-label">To Station</label> <input type="text" name="to"
+                                                ng-required="true" class="form-control" placeholder="Enter Your toStation" ng-model="toStation">
+                                            <span style="color: red" ng-show="(submitClass=='ng-submitted') || (submitClass!='hide-errors' && userForm.to.$dirty && userForm.to.$invalid)">
+						            <span ng-show="userForm.to.$error.required">ToStation Required.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Arrival Day</label> <select ng-model="arrivalDay"
+                                                class="form-control input-sm">
+										<option value="" selected>All</option>
+										<option ng-repeat="day in Days" value="{{day}}">{{
+											day }}</option>
+									</select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Arrival Time</label> <input type="text" class="form-control input-sm"
+                                                ng-model="arrivalTime" /> <strong class="btn-danger" ng-hide="validateTime(arrivalTime);">Not
+									in 24Hrs Time</strong>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div>&nbsp;</div>
+                                <button class="btn btn-primary btn-sm" ng-click="searchTrainForPilot()"><i class="fa fa-search" aria-hidden="true"></i>Search Train</button>
+                                <br /> <br />
+                                <button class="btn btn-warning btn-sm" ng-click="save()"> <i class="fa fa-floppy-o" aria-hidden="true"></i> Save
+							Pilot Trip</button>
+                                <div>&nbsp;</div>
+                                <div class="col-lg-3"> Sign On Duration : <select ng-model="signOnDuration" class="form-control input-sm">
+											<option value="0">0 Mins</option>
+											<option value="10">10 Mins</option>
+											<option value="15">15 Mins</option>
+											<option value="20">20 Mins</option>
+											<option value="30">30 Mins</option>
+											<option value="45">45 Mins</option>
+									</select>
+                                </div>
+
+                                <div class="col-lg-3">Sign Off Duration : <select ng-model="signOffDuration" class="form-control input-sm">
+											<option value="0">0 Mins</option>
+											<option value="10">10 Mins</option>
+											<option value="15">15 Mins</option>
+											<option value="20">20 Mins</option>
+											<option value="30">30 Mins</option>
+											<option value="45">45 Mins</option>
+									</select>
+                                </div>
+
+                                <br>
+                                <br>
+                                <button class="btn btn-primary btn-sm" ng-click="save(true)"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save
+						Pilot Trip With Duty</button>
+                            </fieldset>
+                        </div>
+
+
+
+
+                        <div ng-hide="isPilotTypeTrain()">
+                            <fieldset class="well the-fieldset">
+                                <legend class="the-legend">Select Others</legend>
+
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="control-label">From</label> <input type="text" name="fromstation"
+                                                ng-required="true" class="form-control input-sm" placeholder="Enter Your FromStation"
+                                                ng-model="fromStation">
+                                            <span style="color: red" ng-show="(submitClass=='ng-submitted') || (submitClass!='hide-errors' && userForm.fromstation.$dirty && userForm.fromstation.$invalid)">
+						<span ng-show="userForm.fromstation.$error.required">Station Required.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group" style="margin-top: 2px;">
+                                            <label class="control-label">Departure Day</label> <select ng-model="departureDay"
+                                                class="form-control input-sm">
+										<option value="" selected>All</option>
+										<option ng-repeat="day in Days" value="{{day}}">{{
+											day }}</option>
+									</select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Departure Time</label> <input type="text" class="form-control input-sm"
+                                                ng-model="departureTime" /> <strong class="btn-danger" ng-hide="validateTime(departureTime);">Not
+									in 24Hrs Time</strong>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="control-label">To</label> <input type="text" name="toStation" ng-required="true"
+                                                class="form-control input-sm" placeholder="Enter Your toStation" ng-model="toStation">
+                                            <span style="color: red" ng-show="(submitClass=='ng-submitted') || (submitClass!='hide-errors' && userForm.toStation.$dirty && userForm.toStation.$invalid)">
+						<span ng-show="userForm.toStation.$error.required">Station Required.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Arrival Day</label> <select ng-model="arrivalDay"
+                                                class="form-control input-sm">
+										<option value="">All</option>
+										<option ng-repeat="day in Days" value="{{day}}">{{
+											day }}</option>
+									</select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Arrival Time</label> <input type="text" name="arrivalTime"
+                                                ng-required="true" class="form-control input-sm" placeholder="Enter Your Arrival Time"
+                                                ng-model="arrivalTime"> </input>
+
+                                            <strong class="btn-danger" ng-hide="validateTime(arrivalTime);">Not
+									in 24Hrs Time</strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Name</label> <input type="text" name="name" ng-required="true"
+                                                class="form-control input-sm" placeholder="Enter Your Name" ng-model="name">                                            </input>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Distance</label> <input type="text" name="Distance"
+                                                ng-required="true" class="form-control input-sm" placeholder="Enter Your Name"
+                                                ng-model="distance"> </input>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <label class="control-label">Pilot Type</label> <select ng-model="selectedPilotType"
+                                            class="form-control input-sm" ng-required="true" name="pilotType" ng-options="pilotType.name for pilotType in pilotTypes">
+									<option value="">---Select Pilots----</option>
+								</select>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-warning btn-sm" ng-click="save()"> <i class="fa fa-floppy-o" aria-hidden="true"></i> Save
+							Pilot Trip</button>
+
+                                <br>
+                                <br>
+
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        Sign On Duration :
+                                        <select ng-model="signOnDuration" class="form-control input-sm">
+											<option value="0">0 Mins</option>
+											<option value="10">10 Mins</option>
+											<option value="15">15 Mins</option>
+											<option value="20">20 Mins</option>
+											<option value="30">30 Mins</option>
+											<option value="45">45 Mins</option>
+									</select>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        Sign Off Duration : <select ng-model="signOffDuration" class="form-control input-sm">
+											<option value="0">0 Mins</option>
+											<option value="10">10 Mins</option>
+											<option value="15">15 Mins</option>
+											<option value="20">20 Mins</option>
+											<option value="30">30 Mins</option>
+											<option value="45">45 Mins</option>
+									</select>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <button class="btn btn-primary btn-sm" ng-click="save(true)"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save
+						Pilot Trip With Duty</button>
+                        </div>
+
+
+                    </div>
+
+
+                    </fieldset>
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+</div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>

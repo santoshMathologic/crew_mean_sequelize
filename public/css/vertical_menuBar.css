@@ -1,0 +1,65 @@
+
+/* Structure
+------------------------------------------*/
+
+
+#coolMenu,
+#coolMenu ul {
+	list-style: none;
+}
+#coolMenu {
+	float: left;
+}
+#coolMenu > li {
+	float: left;
+}
+#coolMenu li a {
+	display: block;
+	height: 0em;
+	padding:17px 0px 33px 15px;
+	text-decoration: none;
+}
+#coolMenu ul {
+	position: absolute;
+	display: none;
+	z-index: 999;
+}
+#coolMenu ul li a {
+	width: 260px;
+}
+#coolMenu li:hover ul.noJS {
+	display: block; 
+	width: 300px;
+}
+
+
+/* Main menu
+------------------------------------------*/
+#coolMenu {
+	font-family: Arial;
+	font-size: 12px;
+	background:black;
+}
+#coolMenu > li > a {
+	color: #fff;
+	font-weight: bold;
+}
+#coolMenu > li:hover > a {
+	background: #f09d28;
+	color:white;
+}
+
+
+/* Submenu
+------------------------------------------*/
+#coolMenu ul {
+	background: #f09d28;
+}
+#coolMenu ul li a {
+	color: #000;
+	margin: 5px 0px 11px -37px;
+}
+#coolMenu ul li:hover a {
+	background: #ffc97c;
+	margin: 5px 0px 11px -37px;
+}

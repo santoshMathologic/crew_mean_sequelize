@@ -1,0 +1,17 @@
+@keyframes fadeOut
+{
+  from { opacity: 1.0; }
+  to { opacity: 0.0; }
+}
+
+@-webkit-keyframes fadeOut 
+{
+  from { opacity: 1.0 }
+  to { opacity: 0.0 }
+}
+
+.fade-out
+{ 
+  animation: fadeOut 2s infinite;
+  -webkit-animation: fadeOut 2s infinite;
+}

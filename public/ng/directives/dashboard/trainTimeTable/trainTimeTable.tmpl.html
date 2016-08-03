@@ -1,0 +1,75 @@
+<div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <ul class="breadcrumb">
+        <li class="fa fa-bell"><a href="#">Home</a></li>
+        <li class="active">TrainTimeTable</li>
+    </ul>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Train No {{trainNo}} Originating On {{startDay}}
+
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-striped table-condensed">
+                <thead>
+                    <tr>
+
+                        <th>S.No.</th>
+                        <th>Station Code</th>
+                        <th>Station Name</th>
+                        <th>Arrival</th>
+                        <th>Arrival(Min)</th>
+                        <th>Departure</th>
+                        <th>Departure(Min)</th>
+                        <th>Day</th>
+                        <th>Day-of-Journey</th>
+                        <th>Distance(KM)</th>
+                        <th>Duration(In Min)</th>
+
+
+
+                    </tr>
+
+
+
+
+                </thead>
+                <tbody>
+                    <tr ng-repeat="traintimetable in trainStationList">
+
+                        <td>{{$index+1}}</td>
+                        <td>{{traintimetable.stationCode}}</td>
+                        <td> MUMBAI CST</td>
+                        <td>{{traintimetable.arrivalTime}}</td>
+                        <td>{{traintimetable.arrivalMinutes}}</td>
+                        <td>{{traintimetable.departureTime}}</td>
+                        <td>{{traintimetable.departureMinutes}}</td>
+                        <td>{{Days[1]|limitTo:3}}</td>
+                        <td>{{traintimetable.dayOfJourney}}</td>
+                        <td>{{traintimetable.distance}}</td>
+                        <td>{{traintimetable.dayOfJourney}}</td>
+                        <td>{{traintimetable.journeyDuration}}</td>
+                    </tr>
+                </tbody>
+                <tbody ng-show="true">
+                    <tr style="height:200px">
+                        <td colspan="11" class="text-center"><i class="fa fa-spinner fa-4x fa-pulse"> </i> Loading Trains...</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="9" class="text-center">
+                            <!--<div st-items-by-page="itemsPerPage" st-pagination="" st-template="scripts/directives/pagination/pagination.custom.html"></div> !-->
+                        </td>
+                    </tr>
+                </tfoot>
+
+            </table>
+        </div>
+    </div>
+</div>

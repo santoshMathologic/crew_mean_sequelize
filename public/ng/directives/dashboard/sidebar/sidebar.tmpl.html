@@ -1,0 +1,95 @@
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="red_vertical_divider"></div>
+    <div id="sidebar-wrapper">
+
+        <ul class="sidebar-nav">
+
+
+            <button class="btn btn-primary pull-right" id="menu-toggle">
+                    <i class="fa fa-chevron-circle-right" color="white" aria-hidden="true"></i>
+                </button>
+
+            <li>
+                <a ui-sref="home.dashboard.userPlans">
+                    <i class="fa fa-dashboard fa-fw"></i> DashBoard<span></span>
+                </a>
+
+            </li>
+            <li>
+                <a ui-sref="home.dashboard.userPlans">
+                    <i class="fa fa-user"></i> UserPlan<span></span>
+                </a>
+
+            </li>
+            <li>
+                <a ui-sref="home.dashboard.users">
+                    <i class="fa fa-user"></i> User<span></span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-train fa-fw"></i> Train<span></span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-subway fa-fw"></i> Station<span></span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-sliders fa-fw"></i> DrivingSection<span class="fa arrow"></span>
+                </a>
+            </li>
+            <li>
+                <a ui-sref="home.dashboard.drivingDuty>
+                    <i class="fa fa-random fa-fw"></i> DrivingDuty<span class="fa arrow"></span>
+                </a>
+            </li>
+
+             <li>
+                <a href="#">
+                    <i class="fa fa-home fa-fw"></i> Round Trip<span class="fa arrow"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-home fa-fw"></i> Crew Link<span class="fa arrow"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-space-shuttle fa-fw"></i> Pilot<span class="fa arrow"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-search fa-fw"></i> Search<span class="fa arrow"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-search fa-fw"></i> Imporvent Suggestion<span class="fa arrow"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-user"></i> Crew Type<span></span>
+                </a>
+            </li>
+
+
+
+        </ul>
+    </div>
+
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+</div>

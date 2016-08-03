@@ -1,0 +1,20 @@
+@media screen and (min-width: 768px) {
+    .custom-modal-class {
+        width: 90%!important; 
+    }
+    .custom-body-class{
+     background:grey;
+     font-family: 'Times New Roman', Times, serif;
+
+    }
+    .custom-header-class{
+     background: #800000;
+     font-family: 'Times New Roman', Times, serif;
+
+    }
+    .custom-footer-class{
+     background: #800000;
+     font-family: 'Times New Roman', Times, serif;
+
+    }
+}

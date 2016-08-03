@@ -1,0 +1,254 @@
+<div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <ul class="breadcrumb">
+        <li class="fa fa-bell"><a href="#">Home</a></li>
+        <li class="active">UserPlan</li>
+    </ul>
+    <h1>Current User Plan : Not Selected</h1>
+
+
+    <ul class="w3-ul w3-card-4" ng-repeat="s in selectedUser">
+        <li class="w3-padding-16">
+            <span onclick="this.parentElement.style.display='none'" class="w3-closebtn w3-padding">x</span>
+            <img src="../images/assets/user1-128x128.jpg" class="w3-left w3-circle" style="width:60px">
+            <span class="w3-xlarge">{{s.name}}</span><br>
+            <span>Web Designer</span>
+        </li>
+    </ul>
+
+
+    <div class="col-lg-6">
+        <div class="form-class">
+            <angucomplete-alt text-searching="Searching User........." id="ddlHeadStation" placeholder="Search users................"
+                input-name="headstation" pause="400" selected-object="userSelected" remote-url-data-field="" title-field="firstName"
+                description-field="lastName" remote-api-handler="getUsers" minlength="2" input-class="form-control custom_autoComplete"
+                match-class="highlight" field-required="true" auto-match="true">
+
+            </angucomplete-alt>
+        </div>
+    </div>
+
+
+
+    <br>
+    <br>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">User Plan List
+
+                        <div class="input-group pull-right">
+                            <div class="form-group">
+                                <label class="col-lg-8 control-label">Item Per Page(1-100)</label>
+                                <div class="col-lg-4">
+                                    <input name="limit" class="input-sm form-control pull-right ng-pristine ng-valid ng-valid-number ng-valid-max ng-valid-min"
+                                        min="1" max="100" value="5" step="1" type="number" ng-model-options="{ debounce: 1000 }"
+                                        ng-model="query.limit">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-hover table-condensed table-responsive">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>SlNo</th>
+                                    <th>PlanName</th>
+                                    <th>Owner</th>
+                                    <th>coPlanner</th>
+                                    <th>created On</th>
+                                    <th>UnderReview</th>
+                                    <th>Reviewer</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="userplan in userPlanList" ng-class="{animated:true, fadeOut:myvar, fadeIn: !myvar}">
+
+                                    <td>
+                                        <label><input type="checkbox" value=""></label>
+                                    </td>
+                                    <td>{{$index+1}}</td>
+                                    <td>{{userplan.planName}}</td>
+                                    <td>{{userplan.owner}}</td>
+                                    <td> <span ng-repeat="co in userplan.coPlanners">
+                                       {{co}}</br>
+                                    </span></td>
+                                    <td>{{userplan.createdTime | date:'medium'}}</td>
+                                    <td>
+                                        <div ng-class="(userplan.isUnderReview ? 'user_active' : 'user_deactive')"></div> {{(userplan.isUnderReview)?'yes':'No'}} </td>
+
+                                    <td>{{userplan.reviewer}}</td>
+                                    <td>
+
+                                        <button class="btn btn-danger btn-xs" title="select" ng-click="setPlan();">
+                                         <i class="fa fa-adjust" aria-hidden="true"></i>
+                                         
+                                    </button>
+
+                                        <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal">
+                                         <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                    </button>
+
+                                        <button class="btn btn-success btn-xs">
+                                        <i class="fa fa-files-o" aria-hidden="true"></i>
+                                    </button>
+
+                                        <button class="btn btn-primary btn-xs">
+                                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                                    </button>
+
+
+                                        <button class="btn btn-primary btn-xs" ng-click="removeUserPlan(userplan);myvar=!myvar" ng-show="true" confirm="Are you sure want to delete plan: '{{userplan.planName}}' !!!"
+                                            confirm-settings="{size: 'md'}" confirm-header-class="confirm-header-danger " confirm-footer-class="confirm-footer-default"
+                                            confirm-ok-button-class="btn-danger" confirm-cancel-button-class="btn-default" confirm-title="Confirm Deletion!!"
+                                            confirm-ok="Yes" confirm-cancel="No" title="Remove">
+                                         <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+
+
+
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Create Plan</div>
+                    <div class="panel-body">
+
+                        <form role="form">
+                            <div class="form-group">
+                                <label>Plan Name</label>
+                                <input type="text" class="form-control" ng-model="planObject.planName" id="email">
+                            </div>
+                            <button type="button" class="btn btn-success btn-lg" ng-click="savePlan();">
+                                <i class="fa fa-floppy-o fa-fw" aria-hidden="true"></i>Save</button>
+
+                            <!-- <div class="form-group">
+                                <div class="form-group move-down">
+                                    <label for="Autocomplete2">Autocomplete Model</label>
+                                    <input type="text" id="Autocomplete2" ng-model="autocomplete" class="form-control" ng-autocomplete options="options" details="details"
+                                    />
+
+                                    <br>
+                                    <b>autocomplete</b>: {{autocomplete}}
+                                    <br><br>
+                                    <b>details (formatted address)</b>: {{details.formatted_address}}
+
+                                </div>
+                            </div>
+                            !-->
+
+
+                        </form>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <!--- Modal added !-->
+
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Plan(Share /Send for Review)</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <ul class="nav nav-tabs" style="cursor:pointer">
+                                <li class="active"><a data-target="#send_review" data-toggle="tab">SEND FOR REVIEW</a></li>
+                                <li><a data-target="#share_plan" data-toggle="tab">Share Plan</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="send_review" class="tab-pane active">
+                                    <br>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">Send For Review</div>
+                                        <div class="panel-body">
+                                            <angucomplete-alt text-searching="Searching User........." id="ddlHeadStation" placeholder="Search users................"
+                                                input-name="headstation" pause="400" selected-object="userSelected" remote-url-data-field=""
+                                                title-field="firstName" description-field="lastName" remote-api-handler="getUsers"
+                                                minlength="2" input-class="form-control custom_autoComplete" match-class="highlight"
+                                                field-required="true" auto-match="true">
+                                            </angucomplete-alt>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div id="share_plan" class="tab-pane">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <br>
+
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">Share Plan</div>
+                                                <div class="panel-body">
+
+                                                    <form role="form" name="userForm" ng-class="submitClass" novalidate ng-submit="userForm.$valid && saveUser(userdetails)">
+
+                                                    </form>
+
+
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End of Tab !-->
+                            </div>
+
+
+
+
+
+
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+
+    </div>

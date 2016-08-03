@@ -1,0 +1,258 @@
+<div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <ul class="breadcrumb">
+        <li class="fa fa-bell"><a href="#">Home</a></li>
+        <li class="active">User</li>
+    </ul>
+
+    <ul class="nav nav-tabs" style="cursor:pointer">
+        <li class="active"><a data-target="#view-user-tab" data-toggle="tab"><i class="fa fa-th-list" aria-hidden="true"></i> List Users</a></li>
+        <li><a data-target="#create-user-tab" data-toggle="tab"><i class="fa fa-user" aria-hidden="true"></i> Create User</a></li>
+
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="view-user-tab" class="tab-pane active">
+            <br>
+            <div class="panel panel-default">
+                <div class="panel-heading"> List of user
+                    
+
+
+                    <div class="input-group pull-right">
+                        <div class="form-group">
+                            <label class="col-lg-8 control-label">Item Per Page(1-100)</label>
+                            <div class="col-lg-4">
+                                <input name="limit" class="input-sm form-control pull-right ng-pristine ng-valid ng-valid-number ng-valid-max ng-valid-min"
+                                    min="1" max="100" value="5" step="1" type="number" ng-model-options="{ debounce: 1000 }"
+                                    ng-model="query.limit">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover table-condensed table-responsive">
+                        <thead>
+                            <tr>
+                                <th>SlNo</th>
+                                <th>UserName</th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                                <th>password</th>
+                                <th>email</th>
+                                <th>roleCode</th>
+                                <th>userActive</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="t in trainsList">
+                                <td>{{$index+1}}</td>
+                                <td>{{t.userName}}</td>
+                                <td>{{t.firstName}}</td>
+                                <td>{{t.lastName}}</td>
+                                <td>{{t.password}}</td>
+                                <td>{{t.email}}</td>
+                                <td>{{t.roleCode}}</td>
+                                <!--<td ng-class="t.userActive? 'user_active' : 'user_deactive'">{{(t.userActive)?'yes':'No'}}</td> !-->
+                                <td>
+                                    <div ng-class="(t.userActive ? 'user_active' : 'user_deactive')"></div> {{(t.userActive)?'yes':'No'}} </td>
+
+                                <td>
+                                    <button type="button" class="btn btn-xs btn-primary">
+                                         <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-xs btn-success">
+                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-xs btn-danger">
+                                         <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    </button>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="create-user-tab" class="tab-pane">
+
+
+
+
+
+
+            <div class="row">
+                <div class="col-lg-12" id="userFormDiv">
+                    <form role="form" name="userForm" ng-class="submitClass" novalidate ng-submit="userForm.$valid && saveUser(userdetails)">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="control-label">User Name </label> <input type="text" name="username" ng-required="true"
+                                    class="form-control" placeholder="Enter User Name" ng-model="userdetails.username">
+                                <span style="color: red" ng-show="(submitClass=='ng-submitted') || (submitClass!='hide-errors' && userForm.username.$dirty && userForm.username.$invalid)">
+						            <span ng-show="userForm.username.$error.required">User Name is required.
+                                </span>
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">Password</label> <input type="password" name="password" ng-required="true"
+                                    class="form-control" placeholder="Enter Your Password" ng-model="userdetails.password">
+                                <span style="color: red" ng-show="(submitClass=='ng-submitted') || (submitClass!='hide-errors' && userForm.password.$dirty && userForm.password.$invalid)">
+						<span ng-show="userForm.password.$error.required">Password Required.</span>
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">First Name</label> <input placeholder="Enter First Name" ng-model="userdetails.firstName"
+                                    ng-required="true" name="firstname" type="text" class="form-control"> <span style="color: red"
+                                    ng-show="(submitClass=='ng-submitted') || (submitClass!='hide-errors' && userForm.firstname.$dirty && userForm.firstname.$invalid)">
+						<span ng-show="userForm.firstname.$error.required">First
+							Name is required.</span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" ng-required="true">Last Name</label> <input placeholder="Enter Last Name"
+                                    type="text" ng-model="userdetails.lastName" name="lastName" ng-required="true" class="form-control">
+                                <span style="color: red" ng-show="(submitClass=='ng-submitted') || (submitClass!='hide-errors' && userForm.lastName.$dirty && userForm.lastName.$invalid)">
+						<span ng-show="userForm.lastName.$error.required">Last
+							Name is required.</span>
+                                </span>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Email</label> <input type="email" name="email" ng-required="true"
+                                    placeholder="your@email.com" class="form-control" ng-model="userdetails.email" /> <span style="color: red"
+                                    ng-show="(submitClass=='ng-submitted') || (submitClass!='hide-errors' && userForm.email.$dirty && userForm.email.$invalid)">
+						<span ng-show="userForm.email.$error.required">Email is
+							required.</span> <span ng-show="userForm.email.$error.email">Invalid
+							email address.</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+
+                            <div class="form-group">
+                                <label>Role </label> <select class="form-control" ng-model="userdetails.role" ng-required="true"
+                                    name="role" ng-options="role.roleCode for role in roles">
+						<option value="" selected>--Select Role--</option>
+
+					</select> <span style="color: red" ng-show="(submitClass=='ng-submitted') || (submitClass!='hide-errors' && userForm.role.$dirty && userForm.role.$invalid)">
+
+						<span ng-show="userForm.role.$error.required">User Role is
+							required.</span>
+                                </span>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label class="control-label">Subscribe to make CrewLinks for (Base Station)</label>
+                                <angucomplete-alt text-searching="Searching Text" id="ddlHeadStation" placeholder="Search Stations" input-name="headstation"
+                                    pause="400" selected-object="headStationSelected" remote-url-data-field="" title-field="code"
+                                    description-field="name" remote-api-handler="getHeadStation" minlength="2" input-class="form-control"
+                                    image-field="" match-class="highlight">
+
+                                </angucomplete-alt>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div ng-repeat="selectheadstation in selectedHeadStation">
+
+                                            <div class="col-md-6">
+                                                <div class="panel-body">
+                                                    {{selectheadstation.code}}
+                                                    <a class="btn btn-danger btn-xs glyphicon glyphicon-minus" ng-click="removeheadStation(selectheadstation);"></a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">User Status</label>
+
+
+                                <div class="form-group">
+                                    <i class="fa fa-toggle-on useractive" ng-if="userdetails.isActive == true" ng-click="changeStatus();">
+      </i>
+                                    <i class="fa fa-toggle-on fa-rotate-180 userinactive" ng-if="userdetails.isActive == false" ng-click="changeStatus();">
+      </i>
+                                    <h1 id="active"> {{ (userdetails.isActive) ?'User Is Active':'User Is Not Active' }} </h1>
+                                </div>
+
+
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Mobile No.</label> <input type="text" name="mobileNo" placeholder='Mobile Number'
+                                    class="form-control" ng-model="userdetails.mobileNo" ng-required="true">
+
+                                <span style="color: red" ng-show="(submitClass=='ng-submitted') || (submitClass!='hide-errors' && userForm.mobileNo.$dirty && userForm.mobileNo.$invalid)">
+						<span ng-show="userForm.mobileNo.$error.required">Mobile Number is 
+							required.</span>
+                                </span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">Address</label> <textarea cols="12" rows="5" placeholder='Address'
+                                    class="form-control" name="address" ng-model="userdetails.address" ng-required="true">
+                                    <span style="color:red" ng-show="(submitClass=='ng-submitted') || (submitClass !='hide-errors' && userForm.address.$dirty && userForm.address.$invalid)">
+                                    <span ng-show="userForm.address.$error.required"> Address is Required </span>
+                                    </span>
+                                    </textarea>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <button type="submit" class="btn btn-md btn-success" ng-click="submitClass='ng-submitted'"> <i class="fa fa-bookmark" aria-hidden="true"></i>
+					        Create User
+
+				            </button>
+
+                            <button type="submit" class="btn btn-md btn-primary" ng-click="submitClass='ng-submitted'">
+					       <i class="fa fa-pencil-square" aria-hidden="true"></i> Update User
+
+				            </button>
+                            <button type="button" class="btn btn-md btn-info" ng-click="reset();clearInput('ddlHeadStation');" value="Reset">
+                                <i class="fa fa-refresh" aria-hidden="true"></i> Reset
+                            </button>
+
+
+                        </div>
+                    </form>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="col-lg-12" id="userNextFormDiv">
+
+                </div>
+            </div>
+        </div>
+        <!-- End of Tab !-->
+
+
+
+    </div>
+
+
+</div>
