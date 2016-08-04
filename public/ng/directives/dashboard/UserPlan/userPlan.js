@@ -30,7 +30,7 @@ angular.module('matApp')
                 }
 
 
-                $scope.getUserPlanList();
+             //   $scope.getUserPlanList();
 
                 $scope.savePlan = function () {
 

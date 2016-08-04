@@ -7,26 +7,16 @@ angular.module('matApp')
 
                 $scope.userdetails = {};
                 $scope.blankuserdetails = {};
-                 $scope.userdetails.isActive = false;
+                $scope.userdetails.isActive = false;
                 $scope.images = "https://latimesherocomplex.files.wordpress.com/2030/04/hughjackman4.jpg";
+                $scope.usersList = [];
 
-                $scope.query = {
-                    sortBy: 'userName',
-                    limit: 10,
-                    page: 1,
 
-                };
-                var apiUserListUrl = "http://localhost:3000/api/v1/admin/users"
-
+                var apiUserListUrl = "http://localhost:3000/api/v1/users"
                 $scope.getUserList = function () {
-                    $http.get(apiUserListUrl, { params: $scope.query })
+                    $http.get(apiUserListUrl)
                         .then(function (response) {
-                            $scope.trainsList = response.data.results;
-                            console.log($scope.trainsList);
-                            $scope.currentPage = response.data.current;
-                            $scope.perPage = response.data.options.perPage;
-                            $scope.totalPages = response.data.last;
-                            $scope.totalRecords = response.data.count;
+                            $scope.usersList = response.data[0];
                         });
                 }
 
@@ -53,7 +43,7 @@ angular.module('matApp')
                         });
 
                 }
-                $scope.getRole();
+                //   $scope.getRole();
 
                 $scope.headStationSelected;
 
@@ -62,21 +52,7 @@ angular.module('matApp')
 
                 }
 
-                $scope.$watch('query', function (newValue, oldValue) {
-                    if (!oldValue) {
-                        bookmark = $scope.query.page;
-                    }
 
-                    if (newValue !== oldValue) {
-                        $scope.query.page = newValue.page;
-                    }
-
-                    if (!newValue) {
-                        $scope.query.page = bookmark;
-                    }
-
-                    $scope.getUserList();
-                }, true);
 
 
 
@@ -129,28 +105,47 @@ angular.module('matApp')
                     for (var query in nonDBFieldsArray) {
 
                         if (nonDBFieldsArray.indexOf(query) === -1) {
-                           // console.log(nonDBFieldsArray[query]);
+                            // console.log(nonDBFieldsArray[query]);
                         }
 
                     }
                 }
                 $scope.test();
 
-               
+
                 $scope.changeStatus = function () {
-                   
-                   $scope.userdetails.isActive = !$scope.userdetails.isActive;
-                   angular.element(document.querySelector('[id="active"]')).addClass('animated bounceOutRight');
-                   /* if(!$scope.userdetails.isActive){
-                        $scope.userdetails.isActive = !$scope.userdetails.isActive;
-                        angular.element(document.querySelector('[id="active"]')).addClass('animated bounceOutRight');
-                    }if($scope.userdetails.isActive){
-                        angular.element(document.querySelector('[id="active"]')).addClass('animated bounceOutLeft');
-                    }
-                    */
+
+                    $scope.userdetails.isActive = !$scope.userdetails.isActive;
+                    angular.element(document.querySelector('[id="active"]')).addClass('animated bounceOutRight');
+                    /* if(!$scope.userdetails.isActive){
+                         $scope.userdetails.isActive = !$scope.userdetails.isActive;
+                         angular.element(document.querySelector('[id="active"]')).addClass('animated bounceOutRight');
+                     }if($scope.userdetails.isActive){
+                         angular.element(document.querySelector('[id="active"]')).addClass('animated bounceOutLeft');
+                     }
+                     */
+                }
+                $scope.removeUser = function (user) {
+                    var userUri = "http://localhost:3000/api/v1/users";
+                    $http.delete(userUri, { params: { id: user.id } }).then(function (response) {
+                        $scope.usersList.splice($scope.usersList.indexOf(user),1);
+                          toaster
+                                .pop({
+                                    type: 'success',
+                                    title: response.data.message,
+                                    body: response.data.message
+                                });
+
+                    }, function (error) {
+
+                    })
+
+
+
+
                 }
 
-                
+
 
             }
 

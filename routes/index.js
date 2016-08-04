@@ -21,6 +21,7 @@ router.get('/api/v1/users/find', userRoute.user_find);
 router.get('/api/v1/users', userRoute.getUsers);
 router.post('/api/v1/users', userRoute.createUser);
 router.post('/api/v1/users/saveUsingCreate', userRoute.saveUsingCreate);
+router.delete('/api/v1/users',userRoute.deleteUser);
 
 
 module.exports = router;

@@ -8,6 +8,7 @@ var userObj = {
     getUsers: function (req, res) {
         sequelize.query('SELECT * FROM users').then(function (result) {
             console.log(result);
+            return res.json(result);
         }).error(function (err) {
             console.log(err);
         });
@@ -98,7 +99,32 @@ var userObj = {
 
     },
 
-    deleteItems: function (req, res) {
+    deleteUser: function (req, res) {
+        var paramid = req.query.id;
+        user.destroy({
+            where: {
+                id: paramid //this will be your id that you want to delete
+            }
+        }).then(function (rowDeleted) { // rowDeleted will return number of rows deleted
+            if (rowDeleted === 1) {
+                console.log('Deleted successfully');
+                res.status(201);
+              return res.json({
+                    "status": 200,
+                    "message": "user deleted Successfully"
+                })
+            }
+        }, function (err) {
+            console.log(err);
+        });
+
+        /* user.findAndDelete(id, function (error, result) {
+             if (error) throw error
+             else {
+                 return res.json(result);
+             }
+         });
+         */
 
     },
 

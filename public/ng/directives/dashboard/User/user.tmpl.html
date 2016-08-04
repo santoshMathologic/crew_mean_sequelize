@@ -54,26 +54,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="t in trainsList">
+                            <tr ng-repeat="user in usersList">
                                 <td>{{$index+1}}</td>
-                                <td>{{t.userName}}</td>
-                                <td>{{t.firstName}}</td>
-                                <td>{{t.lastName}}</td>
-                                <td>{{t.password}}</td>
-                                <td>{{t.email}}</td>
-                                <td>{{t.roleCode}}</td>
+                                <td>{{user.userName}}</td>
+                                <td>{{user.firstName}}</td>
+                                <td>{{user.lastName}}</td>
+                                <td>{{user.password}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.roleCode}}</td>
                                 <!--<td ng-class="t.userActive? 'user_active' : 'user_deactive'">{{(t.userActive)?'yes':'No'}}</td> !-->
                                 <td>
-                                    <div ng-class="(t.userActive ? 'user_active' : 'user_deactive')"></div> {{(t.userActive)?'yes':'No'}} </td>
+                                    <div ng-class="(user.userActive ? 'user_active' : 'user_deactive')"></div> {{(user.userActive)?'yes':'No'}} </td>
 
                                 <td>
-                                    <button type="button" class="btn btn-xs btn-primary">
+                                    <button type="button" class="btn btn-xs btn-danger" ng-click="removeUser(user)">
                                          <i class="fa fa-trash" aria-hidden="true"></i>
                                     </button>
                                     <button type="button" class="btn btn-xs btn-success">
                                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                     </button>
-                                    <button type="button" class="btn btn-xs btn-danger">
+                                    <button type="button" class="btn btn-xs btn-info">
                                          <i class="fa fa-info-circle" aria-hidden="true"></i>
                                     </button>
 
