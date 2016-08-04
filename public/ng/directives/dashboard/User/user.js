@@ -26,24 +26,16 @@ angular.module('matApp')
                 $scope.getRole = function () {
                     $scope.roles = [];
                     var apiRole = "http://localhost:3000/api/v1/roles"
-                    $scope.query = {
-                        sortBy: 'roleCode',
-                        limit: 10,
-                        page: 1,
+                    
 
-                    };
-
-                    $http.get(apiRole, { params: $scope.query })
+                    $http.get(apiRole)
                         .then(function (response) {
-                            $scope.roles = response.data.results;
-                            $scope.currentPage = response.data.current;
-                            $scope.perPage = response.data.options.perPage;
-                            $scope.totalPages = response.data.last;
-                            $scope.totalRecords = response.data.count;
+                            $scope.roles = response.data[0];
+                            
                         });
 
                 }
-                //   $scope.getRole();
+                  $scope.getRole();
 
                 $scope.headStationSelected;
 
@@ -69,7 +61,7 @@ angular.module('matApp')
                         || userobj.mobileNo != null && userobj.mobileNo != ''
                     ) {
 
-                        var apiUser = "http://localhost:3000/api/v1/admin/users";
+                        var apiUser = "http://localhost:3000/api/v1/users";
                         $http.post(apiUser, userobj).then(function (successResponse) {
                             if (successResponse.data.status == 200) {
                                 toaster

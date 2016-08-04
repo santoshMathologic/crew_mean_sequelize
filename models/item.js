@@ -2,8 +2,6 @@ var express = require('express');
 var router = express.Router();
 var Sequelize = require('sequelize');
 var sequelize = require('../database/db.js');
-//var validateUser = require('../routes/auth/auth').validateUser;
-
 var Item = sequelize.define('Item', {
     id: {
         type: Sequelize.INTEGER,
@@ -11,12 +9,7 @@ var Item = sequelize.define('Item', {
         allowNull: false,
         autoIncrement: true,
     },
-    indexes: [
-        {
-            unique: true,
-            fields: ['id']
-        },
-    ],
+   
     name: Sequelize.STRING,
     description: Sequelize.STRING,
     qty: Sequelize.INTEGER,

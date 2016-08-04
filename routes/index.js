@@ -3,6 +3,7 @@ var router = express.Router();
 var itemRoute = require('./item.js');
 var userRoute = require('./user.js');
 var roleRoute = require('./role.js');
+var planRoute = require('./userPlan.js');
 
 
 
@@ -23,16 +24,23 @@ router.get('/api/v1/users', userRoute.getUsers);
 router.post('/api/v1/users', userRoute.createUser);
 router.post('/api/v1/users/saveUsingCreate', userRoute.saveUsingCreate);
 router.delete('/api/v1/users', userRoute.deleteUser);
+router.get('/api/v1/users/findAll',userRoute.user_findAll);
 
 
 
-// Routes for Role 
+/// Routes for Role
+ 
 router.get('/api/v1/roles/findOne', roleRoute.role_findOne);
 router.get('/api/v1/roles/find', roleRoute.role_find);
 router.get('/api/v1/roles', roleRoute.getRoles);
 router.post('/api/v1/roles', roleRoute.createRole);
 router.post('/api/v1/roles/saveUsingCreate', roleRoute.saveUsingCreate);
 router.delete('/api/v1/roles', roleRoute.deleteRole);
+
+
+/// Routes for UserPlan
+
+router.post('/api/v1/plans', planRoute.createPlan);
 
 
 module.exports = router;

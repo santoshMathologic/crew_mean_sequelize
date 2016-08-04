@@ -8,6 +8,7 @@ var sequelize = new Sequelize({
             host: "127.0.0.1" || "localhost",
             port: 3306,
             dialect: 'mysql',
+            language: 'en'
 
         });
         sequelize.authenticate().then(function (errors) {

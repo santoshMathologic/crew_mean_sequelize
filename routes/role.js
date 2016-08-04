@@ -23,13 +23,18 @@ var userObj = {
     },
 
     role_find: function (req, res) {
-        role.find({ where: { roleCode: 'admin' } }).then(function (err, user) {
-            if (err) {
-                console.log(err);
-            } else {
+        var limit = req.params.limit || 10
+        var offset = req.params.offset ||0
+        
+
+        role.findAll({
+            limit: limit,
+            offset: offset,
+        }).then(function (user, error) {
+            if (error) throw error;
+            else {
                 return res.json(user);
             }
-
         });
     },
 
@@ -39,6 +44,7 @@ var userObj = {
                 privilegeCode: "Others",
                 roleDescription: "This is Others roles",
                 roleCode: "admin",
+
             }).save()
                 .then(function (response) {
                     console.log('success');

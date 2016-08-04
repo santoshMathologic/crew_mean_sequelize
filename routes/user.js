@@ -6,7 +6,19 @@ var q = require('q');
 
 var userObj = {
     getUsers: function (req, res) {
-        sequelize.query('SELECT * FROM users').then(function (result) {
+
+        var options = {
+            limit: parseInt(req.query.limit) || 10,
+            offset: parseInt(req.query.offset) || 0,
+            orderBy: req.query.orderBy,
+            tableName: req.query.tableName,
+            orderByVerb: req.query.orderByVerb
+
+        }
+
+        var Query = "SELECT * FROM " + options.tableName + " ORDER BY " + options.orderBy + " " +options.orderByVerb+ " LIMIT " + options.limit
+
+        sequelize.query(Query, { type: sequelize.QueryTypes.SELECT }).then(function (result) {
             console.log(result);
             return res.json(result);
         }).error(function (err) {
@@ -33,21 +45,40 @@ var userObj = {
         });
     },
 
+    user_findAll: function (req, res) {
+        var limit = req.params.limit || 10
+        var offset = req.params.offset || 0
+
+        user.find({
+            limit: limit,
+            offset: offset,
+        }).then(function (users, error) {
+            if (error) {
+                console.log(error);
+            } else {
+                return res.json(users);
+            }
+
+        });
+    },
+
     createUser: function (req, res) {
         user.sync().then(function (error) {
             var usrObj = user.build({
-                userName: "santosh.citech",
-                firstName: "santosh",
-                lastName: "sahu",
-                password: "123456",
-                email: "santosh.citech@gmail.com",
-                roleCode: "admin",
-                markDelete: true,
-                mobileNumber: 123456,
-                address: "Bangalore",
-                city: "Bangalore",
-                subscribeStations: "SBC",
-                userActive: true,
+                userName: req.body.username,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                password: req.body.password,
+                email: req.body.email,
+                roleCode: req.body.role.roleCode,
+                markDelete: false,
+                mobileNumber: req.body.mobileNo,
+                address: req.body.address,
+                city: "Bengaluru",
+                subscribeStations: "MAS",
+                userActive: req.body.isActive,
+
+
 
 
             }).save()
@@ -109,7 +140,7 @@ var userObj = {
             if (rowDeleted === 1) {
                 console.log('Deleted successfully');
                 res.status(201);
-              return res.json({
+                return res.json({
                     "status": 200,
                     "message": "user deleted Successfully"
                 })
