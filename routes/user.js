@@ -1,14 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var user = require('../models/user.js');
+var sequelize = require('../database/db.js');
 var q = require('q');
 
 var userObj = {
     getUsers: function (req, res) {
-        user.findAll().then(function (items) {
-            return res.json(items);
-
-        })
+        sequelize.query('SELECT * FROM users').then(function (result) {
+            console.log(result);
+        }).error(function (err) {
+            console.log(err);
+        });
     },
 
 
@@ -34,16 +36,16 @@ var userObj = {
         user.sync().then(function (error) {
             var usrObj = user.build({
                 userName: "santosh.citech",
-                firstName: "",
-                lastName: "",
-                password: "Sequelize.STRING",
-                email: "Sequelize.STRING",
-                roleCode: "Sequelize.STRING",
+                firstName: "santosh",
+                lastName: "sahu",
+                password: "123456",
+                email: "santosh.citech@gmail.com",
+                roleCode: "admin",
                 markDelete: true,
                 mobileNumber: 123456,
-                address: "Sequelize.STRING",
-                city: "Sequelize.STRING",
-                subscribeStations: "Sequelize.STRING",
+                address: "Bangalore",
+                city: "Bangalore",
+                subscribeStations: "SBC",
                 userActive: true,
 
 
